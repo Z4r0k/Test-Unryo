@@ -63,7 +63,12 @@ Application complète permettant de gérer des usagers (CRUD) avec une API REST 
 ```
 .
 ├── backend/
-│   ├── main.go          # Code source de l'API REST
+│   ├── main.go          # Point d'entrée et configuration des routes
+│   ├── models.go        # Structures de données (User, UserRequest, etc.)
+│   ├── database.go      # Gestion de la base de données
+│   ├── handlers.go      # Handlers HTTP (CRUD)
+│   ├── middleware.go    # Middleware (CORS)
+│   ├── main_test.go     # Tests unitaires
 │   ├── go.mod           # Dépendances Go
 │   ├── go.sum           # Checksums des dépendances
 │   └── Dockerfile       # Image Docker pour le backend
@@ -250,7 +255,7 @@ Voir `backend/README_TESTS.md` pour plus de détails.
 - Authentification et autorisation (JWT)
 - Tests d'intégration end-to-end
 - Migration vers PostgreSQL pour la production
-- Validation plus poussée (unicité de l'email, etc.)
+- Validation plus poussée (unicité de l'email, Date, etc.)
 - Logging structuré
 - Rate limiting
 
