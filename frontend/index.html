@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Usagers</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestion des Usagers</h1>
+        </header>
+
+        <div class="actions">
+            <button id="addUserBtn" class="btn btn-primary">Ajouter un usager</button>
+        </div>
+
+        <div id="userForm" class="form-container" style="display: none;">
+            <h2 id="formTitle">Ajouter un usager</h2>
+            <form id="userFormElement">
+                <input type="hidden" id="userId">
+                <div class="form-group">
+                    <label for="firstName">Prénom *</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom *</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="dateNaissance">Date de naissance *</label>
+                    <input type="date" id="dateNaissance" required>
+                </div>
+                <div class="form-group">
+                    <label for="niveauNatation">Niveau de natation *</label>
+                    <select id="niveauNatation" required>
+                        <option value="">Sélectionner un niveau</option>
+                        <optgroup label="Parent et Enfant (jusqu'à 3 ans)">
+                            <option value="PARENT ET ENFANT 1">PARENT ET ENFANT 1</option>
+                            <option value="PARENT ET ENFANT 2">PARENT ET ENFANT 2</option>
+                            <option value="PARENT ET ENFANT 3">PARENT ET ENFANT 3</option>
+                        </optgroup>
+                        <optgroup label="Préscolaire (3 à 5 ans)">
+                            <option value="PRÉSCOLAIRE 1">PRÉSCOLAIRE 1</option>
+                            <option value="PRÉSCOLAIRE 2">PRÉSCOLAIRE 2</option>
+                            <option value="PRÉSCOLAIRE 3">PRÉSCOLAIRE 3</option>
+                            <option value="PRÉSCOLAIRE 4">PRÉSCOLAIRE 4</option>
+                            <option value="PRÉSCOLAIRE 5">PRÉSCOLAIRE 5</option>
+                        </optgroup>
+                        <optgroup label="Nageur (5 ans et plus)">
+                            <option value="NAGEUR 1">NAGEUR 1</option>
+                            <option value="NAGEUR 2">NAGEUR 2</option>
+                            <option value="NAGEUR 3">NAGEUR 3</option>
+                            <option value="NAGEUR 4">NAGEUR 4</option>
+                            <option value="NAGEUR 5">NAGEUR 5</option>
+                            <option value="NAGEUR 6">NAGEUR 6</option>
+                        </optgroup>
+                        <optgroup label="Jeune sauveteur (8 ans et plus)">
+                            <option value="NAGEUR 7">NAGEUR 7 (Jeune sauveteur)</option>
+                            <option value="NAGEUR 8">NAGEUR 8 (Jeune sauveteur)</option>
+                            <option value="NAGEUR 9">NAGEUR 9 (Jeune sauveteur)</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Annuler</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="message" class="message" style="display: none;"></div>
+
+        <div class="users-container">
+            <div class="users-header">
+                <h2>Liste des usagers</h2>
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par nom, prénom ou email...">
+                </div>
+            </div>
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filterNiveau">Filtrer par niveau:</label>
+                    <select id="filterNiveau" class="filter-select">
+                        <option value="">Tous les niveaux</option>
+                        <optgroup label="Parent et Enfant">
+                            <option value="PARENT ET ENFANT 1">PARENT ET ENFANT 1</option>
+                            <option value="PARENT ET ENFANT 2">PARENT ET ENFANT 2</option>
+                            <option value="PARENT ET ENFANT 3">PARENT ET ENFANT 3</option>
+                        </optgroup>
+                        <optgroup label="Préscolaire">
+                            <option value="PRÉSCOLAIRE 1">PRÉSCOLAIRE 1</option>
+                            <option value="PRÉSCOLAIRE 2">PRÉSCOLAIRE 2</option>
+                            <option value="PRÉSCOLAIRE 3">PRÉSCOLAIRE 3</option>
+                            <option value="PRÉSCOLAIRE 4">PRÉSCOLAIRE 4</option>
+                            <option value="PRÉSCOLAIRE 5">PRÉSCOLAIRE 5</option>
+                        </optgroup>
+                        <optgroup label="Nageur">
+                            <option value="NAGEUR 1">NAGEUR 1</option>
+                            <option value="NAGEUR 2">NAGEUR 2</option>
+                            <option value="NAGEUR 3">NAGEUR 3</option>
+                            <option value="NAGEUR 4">NAGEUR 4</option>
+                            <option value="NAGEUR 5">NAGEUR 5</option>
+                            <option value="NAGEUR 6">NAGEUR 6</option>
+                        </optgroup>
+                        <optgroup label="Jeune sauveteur">
+                            <option value="NAGEUR 7">NAGEUR 7</option>
+                            <option value="NAGEUR 8">NAGEUR 8</option>
+                            <option value="NAGEUR 9">NAGEUR 9</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterAgeMin">Âge min:</label>
+                    <input type="number" id="filterAgeMin" class="filter-input" min="0" placeholder="Min">
+                </div>
+                <div class="filter-group">
+                    <label for="filterAgeMax">Âge max:</label>
+                    <input type="number" id="filterAgeMax" class="filter-input" min="0" placeholder="Max">
+                </div>
+                <button id="clearFilters" class="btn btn-secondary">Effacer les filtres</button>
+            </div>
+            <div id="usersList" class="users-list">
+                <p class="loading">Chargement...</p>
+            </div>
+            <div id="pagination" class="pagination" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="static/app.js"></script>
+</body>
+</html>
