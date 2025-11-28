@@ -1,7 +1,11 @@
 // Application principale - Gestion des usagers
 
+// Import de date-fns depuis CDN
+import { format } from 'https://cdn.jsdelivr.net/npm/date-fns@3.0.0/+esm';
+import { fr } from 'https://cdn.jsdelivr.net/npm/date-fns@3.0.0/locale/fr/+esm';
+
 import { API_BASE_URL, DEFAULT_PAGE, DEFAULT_LIMIT, SEARCH_DEBOUNCE_MS, MESSAGE_DISPLAY_DURATION_MS } from './config.js';
-import { escapeHtml, formatDate } from './utils.js';
+import { escapeHtml } from './utils.js';
 
 // Éléments DOM
 const usersList = document.getElementById('usersList');
@@ -177,7 +181,7 @@ function displayUsers(users) {
                 <p class="email">${escapeHtml(user.email)}</p>
                 <p class="age">Âge: ${user.age || 'N/A'} ans</p>
                 <p class="niveau">Niveau: ${escapeHtml(user.niveau_natation || 'N/A')}</p>
-                <p class="date">Créé le ${formatDate(user.created_at)}</p>
+                <p class="date">Créé le ${format(new Date(user.created_at), "d MMMM yyyy 'à' HH'h'mm", { locale: fr })}</p>
             </div>
             <div class="user-actions">
                 <button class="btn btn-edit" onclick="editUser(${user.id})" aria-label="Modifier ${escapeHtml(user.first_name)} ${escapeHtml(user.last_name)}">Modifier</button>

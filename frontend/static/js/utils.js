@@ -14,30 +14,4 @@ export function escapeHtml(text) {
     return div.innerHTML;
 }
 
-/**
- * Formate une date de manière élégante en français avec date-fns
- * @param {string} dateString - Date au format ISO
- * @returns {string} Date formatée (ex: "22 août 2025 à 13h45")
- */
-export function formatDate(dateString) {
-    try {
-        const date = new Date(dateString);
-        
-        // Format: "22 août 2025 à 13h45" avec date-fns
-        return format(date, "d MMMM yyyy 'à' HH'h'mm", { 
-            locale: fr 
-        });
-    } catch (error) {
-        // Fallback: formatage manuel si date-fns échoue
-        console.warn('Erreur date-fns, utilisation du formatage manuel:', error);
-        const date = new Date(dateString);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        
-        return `${day}/${month}/${year} à ${hours}h${minutes}`;
-    }
-}
 
